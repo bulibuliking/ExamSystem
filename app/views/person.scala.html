@@ -1,0 +1,171 @@
+
+  <style type="text/css"> 
+        #fm 
+        { 
+            margin: 0; 
+            padding: 10px 30px; 
+        } 
+        .ftitle 
+        { 
+            font-size: 14px; 
+            font-weight: bold; 
+            padding: 5px 0; 
+            margin-bottom: 10px; 
+            border-bottom: 1px solid #ccc; 
+        } 
+        .fitem 
+        { 
+            margin-bottom: 5px; 
+        } 
+        .fitem label 
+        { 
+            display: inline-block; 
+            width: 80px; 
+        } 
+    </style> 
+  <table id="tPerson" title="人员管理" class="easyui-datagrid" style="width:700px;" iconCls="icon-edit"
+   		toolbar="#tbPerson" data-options="
+		      fit:true,
+              singleSelect:true,
+              rownumbers:true,
+              fitColumns:true,
+			  data:jsondata,
+              view:groupview,
+              groupField:'DeptName',
+              groupFormatter:function(value,rows){
+                return value + ' (人数:- ' + rows.length + ')';}">
+    <thead>
+	  <tr>
+        <th  data-options="field:'kid',width:0," hidden="true">kid</th>
+        <th  data-options="field:'DepartmentID',width:0," hidden="true">DepartmentID</th>		
+		<th  data-options="field:'Name',width:140," align="center">姓名</th>
+		<th  data-options="field:'DeptNO',width:88" align="center">部门ID</th>
+		<th  data-options="field:'DeptName',width:200" align="center">部门名称</th>
+		<th  data-options="field:'PostName',width:70" align="center">职务</th>
+		<th  data-options="field:'Sex',width:60" align="center">性别</th>
+		<th  data-options="field:'Age',width:50" align="center">年龄</th>
+		<th  data-options="field:'State',width:60" align="center">状态</th>
+	  </tr>
+	</thead>
+ </table>
+    <div id="tbPerson">
+      <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" onclick="newuser()" plain="true">添加</a> 
+	  <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit" onclick="edituser()" plain="true">修改</a> 
+	  <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-remove" onClick="destroyUser()" plain="true">删除</a>
+    </div>
+ 
+    <div id="dlgPerson" class="easyui-dialog" style="width: 400px; height: 400px; padding: 10px 20px;"
+           closed="true" buttons="#person-buttons"> 
+       <div class="ftitle"> 
+           用户信息 
+       </div> 
+       <form id="fm" method="post"> 
+       <div class="fitem"> 
+           <label>姓名 </label> 
+           <input name="AccountCode" class="easyui-validatebox" required="true" missingMessage="用户名必填"/> 
+       </div> 
+       <div class="fitem"> 
+           <label>部门ID</label> 
+           <input name="AccountName" class="easyui-validatebox" required="true" missingMessage="部门ID必填"/> 
+       </div> 
+       <div class="fitem"> 
+           <label>部门</label> 
+           <input name="AccountPwd" class="easyui-validatebox" required="true" missingMessage="部门必填" /> 
+       </div> 
+       <div class="fitem"> 
+           <label>职务</label> 
+           <input name="CreateTime" class="easyui-vlidatebox"  /> 
+       </div> 
+       <div class="fitem"> 
+           <label>性别</label> 
+           <input name="CreateName" class="easyui-vlidatebox" /> 
+       </div>
+       <div class="fitem"> 
+           <label>出生日期</label> 
+           <input name="CreateName" class="easyui-datebox" /> 
+       </div>
+       <div class="fitem"> 
+           <label>入职日期</label> 
+           <input name="CreateName" class="easyui-datebox" /> 
+       </div>
+       <div class="fitem"> 
+           <label>状态</label> 
+           <input name="CreateName" class="easyui-vlidatebox" /> 
+       </div> 
+       <div class="fitem"> 
+           <label>权限</label> 
+           <input name="CreateName" class="easyui-vlidatebox" /> 
+       </div> 	   
+       <input type="hidden" name="ID" id="Nameid" /> 
+       </form> 
+    </div> 
+
+    <div id="person-buttons"> 
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveuser()" iconcls="icon-save">保存</a> 
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#dlgPerson').dialog('close')"
+            iconcls="icon-cancel">取消</a> 
+    </div> 
+  <script>
+    var jsondata = [
+      {"kid":"1", "DepartmentID":"1","Name":"张三","DeptNO":"123", "DeptName":"后勤部","PostName":"经理","Sex":"男","Age":30,"State":"启用"},
+      {"kid":"1", "DepartmentID":"1","Name":"李四","DeptNO":"123", "DeptName":"后勤部","PostName":"程序员","Sex":"男","Age":30,"State":"启用"},
+      {"kid":"1", "DepartmentID":"2","Name":"王五","DeptNO":"123", "DeptName":"开发部","PostName":"经理","Sex":"男","Age":30,"State":"启用"},
+	  {"kid":"1", "DepartmentID":"2","Name":"孙悟空","DeptNO":"123", "DeptName":"开发部","PostName":"经理","Sex":"男","Age":30,"State":"启用"},
+	  {"kid":"1", "DepartmentID":"3","Name":"猪八戒","DeptNO":"123", "DeptName":"财务部","PostName":"经理","Sex":"男","Age":30,"State":"启用"}
+    ];
+  </script>
+     <script type="text/javascript">
+        var url;
+        var type;
+        function newuser() {
+            $("#dlgPerson").dialog("open").dialog('setTitle', '新增用户'); ;
+            $("#fm").form("clear");
+            url = "UserManage.aspx";
+            document.getElementById("hidtype").value="submit";
+        }
+        function edituser() {
+            var row = $("#tPerson").datagrid("getSelected");
+            if (row) {
+                $("#dlgPerson").dialog("open").dialog('setTitle', '编辑用户');
+                $("#fm").form("load", row);
+                url = "UserManage.aspx?id=" + row.ID;
+            }
+        }
+        function saveuser() {
+            $("#fm").form("submit", {
+                url: url,
+                onsubmit: function () {
+                    return $(this).form("validate");
+                },
+                success: function (result) {
+                    if (result == "1") {
+                        $.messager.alert("提示信息", "操作成功");
+                        $("#dlgPerson").dialog("close");
+                        $("#tPerson").datagrid("load");
+                    }
+                    else {
+                        $.messager.alert("提示信息", "操作失败");
+                    }
+                }
+            });
+        }
+        function destroyUser() {
+            var row = $('#tPerson').datagrid('getSelected');
+            if (row) {
+                $.messager.confirm('警告', '你确认要删除该用户吗?', function (r) {
+                    if (r) {
+                        $.post('destroy_user.php', { id: row.id }, function (result) {
+                            if (result.success) {
+                                $('#tPerson').datagrid('reload');    // reload the user data  
+                            } else {
+                                $.messager.show({   // show error message  
+                                    title: '错误',
+                                    msg: result.errorMsg
+                                });
+                            }
+                        }, 'json');
+                    }
+                });
+            }
+        }  
+    </script>

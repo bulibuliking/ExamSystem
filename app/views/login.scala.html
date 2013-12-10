@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>考试系统</title>
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("resources/easyui/themes/default/easyui.css")">
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("resources/easyui/themes/icon.css")">
+    <script type="text/javascript" src="@routes.Assets.at("resources/easyui/jquery.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("resources/easyui/jquery.easyui.min.js")"></script>
+    <script src="@routes.Assets.at("resources/jslib/common.js")"></script>
+	<script src="@routes.Assets.at("resources/jslib/login.js")"></script>
+</head>
+<body class="easyui-layout">
+<div data-options="region:'north',border:false" style="height:100px; text-align:center;">
+<div style=" margin:auto 0;"><h1>消防考试系统</h1></div>
+</div>
+<div data-options="region:'center',fit:true">
+
+       <form id="login_form" method="post">
+           <table style="margin: 50px auto 50px auto;">
+               <tr>
+                   <th>用户名：</th>
+                   <td><input class="easyui-validatebox" data-options="required:true,missingMessage:'用户名必填'" name="name">
+                   </td>
+               </tr>
+               <tr>
+                   <th>密　码：</th>
+                   <td><input type="password" class="easyui-validatebox" data-options="required:true,missingMessage:'密码必填'"
+                              name="pwd"></td>
+               </tr>
+               <tr>
+                   <td>&nbsp;</td>
+                   <td>&nbsp;</td>
+               </tr>
+               <tr>
+                   <td colspan="2" align="center"><a  href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onClick="userLogin();">登录</a>　　　<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-undo'">重置</a></td>
+               </tr>
+           </table>
+       </form>
+
+</div>
+<div data-options="region:'south',border:false" style="height:30px;overflow: hidden;">
+    <p style="text-align: center;">版权所有&copy; 2013--2013</p>
+</div>
+</body>
+</html>
