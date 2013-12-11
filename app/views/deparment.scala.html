@@ -33,11 +33,12 @@
 	  function addNewDept() {
 	    if ($('#DeptName').val().trim() == '') return;
 	    $('#tt_Dept').datagrid('appendRow',{
-	           id: '4',
+	           id: '0',
 	           dept_name: $('#DeptName').val().trim()
            });
 		$('#DeptName').val('');   
 	  }
+	  //这里需要同步到数据库
 	</script>
 	<script>
 		$.extend($.fn.datagrid.defaults.editors, {
@@ -95,9 +96,11 @@
 					$('#tt_Dept').datagrid('deleteRow', getRowIndex(target));
 				}
 			});
+			//这里需要同步到数据库
 		}
 		function saverow(target){
 			$('#tt_Dept').datagrid('endEdit', getRowIndex(target));
+			//这里需要同步到数据库
 		}
 		function cancelrow(target){
 			$('#tt_Dept').datagrid('cancelEdit', getRowIndex(target));
