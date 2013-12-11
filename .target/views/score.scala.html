@@ -1,0 +1,39 @@
+
+  <table id="tbScore" title="成绩查询" class="easyui-datagrid" style="width:700px;" iconCls="icon-edit"
+   			 data-options="
+			  fit:true, 
+              singleSelect:true,
+              rownumbers:true,
+              fitColumns:true,
+			  data:jsondata,
+              view:groupview,
+              groupField:'DeptName',
+              groupFormatter:function(value,rows){
+                return value + ' (人数:- ' + rows.length + ')';}">
+    <thead>
+	  <tr>
+        <th  data-options="field:'kid',width:0," hidden="true">kid</th>
+        <th  data-options="field:'DepartmentID',width:0," hidden="true">DepartmentID</th>		
+		<th  data-options="field:'Name',width:140," align="center">姓名</th>
+		<th  data-options="field:'DeptNO',width:88" align="center">部门ID</th>
+		<th  data-options="field:'Score',width:60" align="center">成绩</th>
+		<th  data-options="field:'ExamDate',width:88" align="center">考试日期</th>
+		<th  data-options="field:'action',width:88" align="center" formatter="formatAction">查看</th>
+	  </tr>
+	</thead>
+ </table>
+  <script>
+    var jsondata = [
+      {"kid":"1", "DepartmentID":"1","Name":"张三","DeptNO":"123","DeptName":"后勤部","Score":98,"ExamDate":"2012-12-30"},
+      {"kid":"1", "DepartmentID":"1","Name":"李四","DeptNO":"123", "DeptName":"后勤部","Score":87,"ExamDate":"2012-12-30"},
+      {"kid":"1", "DepartmentID":"2","Name":"王五","DeptNO":"123","DeptName":"开发部","Score":78,"ExamDate":"2012-12-30"},
+	  {"kid":"1", "DepartmentID":"2","Name":"孙悟空","DeptNO":"123","DeptName":"开发部","Score":60,"ExamDate":"2012-12-30"},
+	  {"kid":"1", "DepartmentID":"3","Name":"猪八戒","DeptNO":"123", "DeptName":"开发部","Score":55,"ExamDate":"2012-12-30"}
+    ];
+  </script>
+  	<script type="text/javascript">
+		function formatAction(value,row,index){
+		 var s = '<a href="#" onclick="Show(this)">查看</a> ';
+		 return s;
+		}
+	</script>
