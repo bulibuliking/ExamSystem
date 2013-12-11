@@ -19,7 +19,7 @@
            <table style="margin: 50px auto 50px auto;">
                <tr>
                    <th>用户名：</th>
-                   <td><input class="easyui-validatebox" data-options="required:true,missingMessage:'用户名必填'" name="name">
+                   <td><input type="text" class="easyui-validatebox" data-options="required:true,missingMessage:'用户名必填'" name="name">
                    </td>
                </tr>
                <tr>
@@ -37,6 +37,7 @@
            </table>
        </form>
 
+
 </div>
 <div data-options="region:'south',border:false" style="height:30px;overflow: hidden;">
     <p style="text-align: center;">版权所有&copy; 2013--2013</p>
@@ -46,15 +47,15 @@
    	login_form = $('#login_form').form('submit', {
 		url:'/login',
 		success:function(data){
-			var data = $.parseJSON(data);
-			showMsgBox(data.msg,'提示信息');
-			if(data.success){
+			var message = $.parseJSON(data);
+			showMsgBox(message.msg,'提示信息');;
+			if(message.success){
 				window.setTimeout(function(){
                             window.location.href='/';
                         },1300);
 				}
 			}
-		});
+		}, 'json');
   }
  </script>
 </body>

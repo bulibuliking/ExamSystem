@@ -3,17 +3,50 @@ package controllers
 import play.api._
 import play.api.mvc._
 import play.api.libs.json.Json
+import play.api.data._
+import play.api.data.Forms._
+import org.joda.time.DateTime
+
+import models._
+import models.JsonFormats._
 
 object Application extends Controller {
 
-  def main = Action{
-    Ok(views.html.main())
+
+  def main = Action { implicit request =>
+    val optionName = request.session.get("name")
+    optionName match {
+      case Some(name) => Ok(views.html.main(name))
+      case None => Redirect(routes.Application.login).withNewSession
+    }
+    //Ok(views.html.main("who am i"))
+
   }
  
   def login = Action{
     Ok(views.html.login())
   }
-  
+
+
+
+  def loginSubmit = Action {
+    implicit request => {
+
+      loginForm.bindFromRequest().fold(
+        errors => Redirect(routes.Application.login),
+        loginData => {
+          Logger.info(s"${loginData.name} has login....")
+          //Redirect(routes.Application.main).withSession("name" -> loginData._1)
+          Ok(Json.toJson(LoginSuccessMessage(1, loginData.name))).withSession("name" -> loginData.name)
+        }
+      )
+     /* Logger.debug(s"logining...........${request.body}")
+      val loginJson = request.body.as[LoginJson]
+      Ok(Json.toJson((LoginSuccessMessage(DateTime.now().getMillis, "ok"))))
+        .withSession("name" -> loginJson.name)
+*/
+    }
+  }
  //单选题页面
   def  singletopic = Action {
    Ok(views.html.singletopic()) 
