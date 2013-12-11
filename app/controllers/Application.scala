@@ -36,15 +36,11 @@ object Application extends Controller {
         errors => Redirect(routes.Application.login),
         loginData => {
           Logger.info(s"${loginData.name} has login....")
-          //Redirect(routes.Application.main).withSession("name" -> loginData._1)
+
           Ok(Json.toJson(LoginSuccessMessage(1, loginData.name))).withSession("name" -> loginData.name)
         }
       )
-     /* Logger.debug(s"logining...........${request.body}")
-      val loginJson = request.body.as[LoginJson]
-      Ok(Json.toJson((LoginSuccessMessage(DateTime.now().getMillis, "ok"))))
-        .withSession("name" -> loginJson.name)
-*/
+
     }
   }
  //单选题页面
